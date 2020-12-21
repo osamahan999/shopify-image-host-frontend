@@ -2,13 +2,13 @@ import React from "react";
 import LeftSideBar from "./components/LeftSideBar/LeftSideBar";
 
 import styles from "./App.module.css";
-import ContentFeed from "./components/ContentFeed/ContentFeed";
+import LoggedInPage from "./pages/LoggedInPage/LoggedInPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
 
 function App() {
   return (
     <div className={styles.App}>
-      <LeftSideBar />
-      <ContentFeed />
+      <RegisterPage />
     </div>
   );
 }
