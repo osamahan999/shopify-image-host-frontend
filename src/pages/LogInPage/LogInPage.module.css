@@ -42,7 +42,7 @@
     background-color: aliceblue;
 }
 
-.RegisterContainer {
+.LoginContainer {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -53,7 +53,7 @@
 
 }
 
-.RegisterForm {
+.LoginForm {
     margin-top: 10%;
 
     width: 100%;
