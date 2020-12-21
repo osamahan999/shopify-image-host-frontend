@@ -1,0 +1,95 @@
+.LeftSideBarContainer {
+    width: 25%;
+    background-color: lightblue;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.AddDeleteImages {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.ImageButton {
+    margin-top: 10%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    
+    cursor: pointer;
+    
+    font-size: 20px;
+
+    background-color: aliceblue;
+    border-radius: 200px;
+    border: 1px solid black;
+    width:40%;
+    text-align: center;
+}
+
+.RepoContainer {
+    margin-top: 10%;
+
+    display:flex;
+
+    justify-content: center;
+    width: 90%;
+    margin-left: 5%;
+    height: 60%;
+    background-color: lightcyan;
+
+    border-radius: 50px;
+
+    overflow-y: auto;  
+    scrollbar-width: none;  
+
+}
+
+.LogoutContainer {
+    margin-top: 10%;
+    height:20%;
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5%;
+    
+    
+}
+
+.Logout {
+  
+    background-color: aliceblue;
+    border-radius: 200px;
+    border: 1px solid black;
+    width: 35%;
+    height:50%; 
+}
+
+.AddDeleteModal {
+    position: absolute;
+    
+    margin-left: 30%;
+    margin-top: 10%;
+    display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 24px;
+	width: 40%;
+	height: 30%;
+    background-color: white;
+
+}
+
+.ModalContent {
+    width: 100%;
+    height: 100%;
+}
