@@ -16,6 +16,7 @@ function LeftSideBar(props) {
     const [publicRepo, setPublicRepo] = useState(true);
     const [repoName, setRepoName] = useState(null);
 
+    const [repoID, setRepoID] = useState(null);
 
     const [refreshFeed, setRefreshFeed] = useState(false);
 
@@ -23,6 +24,30 @@ function LeftSideBar(props) {
     useEffect(() => {
         setUserUUID(props.userUUID);
     }, [props.userUUID])
+
+
+    const deleteRepo = () => {
+        if (repoID != null && userUUID != null) {
+            var inputRepoID = repoID;
+            setRepoID(null);
+            document.getElementById("delete-repo").reset();
+
+
+            axios.post("http://localhost:5000/repo/deleteRepo", {
+                userUUID: userUUID,
+                repoID: inputRepoID
+            }).then((response) => {
+
+                setRefreshFeed(!refreshFeed);
+                setDeleteModalOpen(false);
+
+            }).catch((error) => {
+                alert(error.toString());
+
+
+            });
+        }
+    }
 
 
     const createRepo = () => {
@@ -36,7 +61,7 @@ function LeftSideBar(props) {
 
 
             axios.post("http://localhost:5000/repo/newRepo", {
-                userUUID: props.userUUID,
+                userUUID: userUUID,
                 repoName: inputRepoName,
                 publicRepo: inputPublicRepo
             }).then((response) => {
@@ -86,7 +111,14 @@ function LeftSideBar(props) {
 
                 <div >
                     <Modal className={styles.AddDeleteModal} open={DeleteModalOpen} onClose={() => setDeleteModalOpen(false)} >
-                        <div className={styles.ModalContent}>delete</div>
+                        <form id="delete-repo" className={styles.ModalContent}>
+                            <div className={styles.inputSection}>
+                                <div ><div>Repo ID*:</div><input onChange={(e) => setRepoID(e.target.value)}></input></div>
+                                <button type="button" onClick={() => deleteRepo()} className={styles.SubmissionButton}>Delete Repo</button>
+
+                            </div>
+
+                        </form>
                     </Modal>
 
                 </div>

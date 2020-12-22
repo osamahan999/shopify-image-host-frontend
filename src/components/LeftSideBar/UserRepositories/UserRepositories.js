@@ -24,6 +24,7 @@ function UserRepositories(props) {
                 }
 
             }).then((response) => {
+                setRepositories(null);
                 setRepositories(response.data);
             }).catch((error) => {
                 alert("err!");
