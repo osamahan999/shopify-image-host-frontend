@@ -1,0 +1,17 @@
+.ImageContainer {
+    
+    width: 30%;
+    height:30%;
+    text-align: center;
+
+    
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.Image {
+    background-color: lightpink;
+    height: 100%;
+}

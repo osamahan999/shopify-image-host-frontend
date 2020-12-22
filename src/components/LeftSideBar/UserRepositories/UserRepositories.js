@@ -40,7 +40,7 @@ function UserRepositories(props) {
             {repositories != null && repositories.map((repository) => {
 
                 return (
-                    <button className={styles.Repo}>
+                    <button onClick={() => props.setContentFeed(repository.repo_id)} className={styles.Repo}>
                         <div>Repo Name : {repository.name}</div>
                         <div>Repo Id: {repository.repo_id}</div>
                     </button>

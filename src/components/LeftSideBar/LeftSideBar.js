@@ -18,6 +18,7 @@ function LeftSideBar(props) {
 
     const [repoID, setRepoID] = useState(null);
 
+    const [errorMessage, setErrorMessage] = useState(false);
     const [refreshFeed, setRefreshFeed] = useState(false);
 
 
@@ -30,7 +31,7 @@ function LeftSideBar(props) {
         if (repoID != null && userUUID != null) {
             var inputRepoID = repoID;
             setRepoID(null);
-            document.getElementById("delete-repo").reset();
+            if (document.getElementById("delete-repo") != null) document.getElementById("delete-repo").reset();
 
 
             axios.post("http://localhost:5000/repo/deleteRepo", {
@@ -42,7 +43,7 @@ function LeftSideBar(props) {
                 setDeleteModalOpen(false);
 
             }).catch((error) => {
-                alert(error.toString());
+                setErrorMessage(error.toString());
 
 
             });
@@ -57,7 +58,7 @@ function LeftSideBar(props) {
 
             setRepoName(null);
             setPublicRepo(true);
-            document.getElementById("create-repo").reset();
+            if (document.getElementById("create-repo") != null) document.getElementById("create-repo").reset();
 
 
             axios.post("http://localhost:5000/repo/newRepo", {
@@ -69,7 +70,7 @@ function LeftSideBar(props) {
                 setAddModalOpen(false);
 
             }).catch((error) => {
-                alert(error.toString());
+                setErrorMessage(error.toString());
 
 
             });
@@ -85,8 +86,13 @@ function LeftSideBar(props) {
                     New Repo
                 </button>
                 <div >
-                    <Modal className={styles.AddDeleteModal} open={AddModalOpen} onClose={() => setAddModalOpen(false)} >
+                    <Modal className={styles.AddDeleteModal} open={AddModalOpen} onClose={() => {
+                        setAddModalOpen(false);
+                        setErrorMessage(false);
+                    }} >
                         <form id="create-repo" className={styles.ModalContent}>
+                            {errorMessage && <div>{errorMessage}</div>}
+
                             <div className={styles.inputSection}>
                                 <div ><div>Repo Name*:</div><input onChange={(e) => setRepoName(e.target.value)}></input></div>
                                 <div ><div>Private *</div><input onClick={(e) => {
@@ -110,8 +116,14 @@ function LeftSideBar(props) {
                 </button>
 
                 <div >
-                    <Modal className={styles.AddDeleteModal} open={DeleteModalOpen} onClose={() => setDeleteModalOpen(false)} >
+                    <Modal className={styles.AddDeleteModal} open={DeleteModalOpen} onClose={() => {
+                        setDeleteModalOpen(false);
+                        setErrorMessage(false);
+                    }} >
+
                         <form id="delete-repo" className={styles.ModalContent}>
+                            <div>{errorMessage && <div>{errorMessage}</div>}</div>
+
                             <div className={styles.inputSection}>
                                 <div ><div>Repo ID*:</div><input onChange={(e) => setRepoID(e.target.value)}></input></div>
                                 <button type="button" onClick={() => deleteRepo()} className={styles.SubmissionButton}>Delete Repo</button>
@@ -119,6 +131,7 @@ function LeftSideBar(props) {
                             </div>
 
                         </form>
+
                     </Modal>
 
                 </div>
@@ -126,7 +139,7 @@ function LeftSideBar(props) {
 
 
             <div className={styles.RepoContainer}>
-                <UserRepositories refreshFeed={refreshFeed} userUUID={props.userUUID} />
+                <UserRepositories setContentFeed={props.setContentFeed} refreshFeed={refreshFeed} userUUID={props.userUUID} />
             </div>
 
             <div className={styles.LogoutContainer}>

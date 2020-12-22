@@ -9,7 +9,7 @@ import styles from "./LoggedInPage.module.css";
 
 function LoggedInPage(props) {
     const [userUUID, setUserUUID] = useState(null);
-
+    const [RepoInFocus, setRepoInFocus] = useState(null);
     useEffect(() => {
         setUserUUID(props.userUUID);
     }, [props.userUUID]);
@@ -18,8 +18,8 @@ function LoggedInPage(props) {
     return (
         <div className={styles.container} >
 
-            <LeftSideBar userUUID={userUUID} switchPage={props.switchPage} />
-            <ContentFeed userUUID={userUUID} />
+            <LeftSideBar setContentFeed={(e) => setRepoInFocus(e)} userUUID={userUUID} switchPage={props.switchPage} />
+            <ContentFeed contentFeed={RepoInFocus} userUUID={userUUID} />
 
 
 
