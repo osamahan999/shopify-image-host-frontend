@@ -1,11 +1,12 @@
 import { React, useState } from "react";
+import TopBar from "../../components/TopBar/Topbar";
 
 import styles from "./RegisterPage.module.css";
 
 const axios = require('axios');
 
 
-function RegisterPage() {
+function RegisterPage(props) {
 
     const [firstName, setFirstName] = useState(false);
     const [lastName, setLastName] = useState(false);
@@ -54,17 +55,7 @@ function RegisterPage() {
         <div className={styles.container} >
 
             <div className={styles.ContentContainer}>
-                <div className={styles.TopBar}>
-                    <button className={styles.Buttons}>
-                        Back to Home Page
-                    </button>
-
-
-                    <button className={styles.Buttons}>
-                        Log In Page
-                    </button>
-                </div>
-
+                <TopBar switchPage={props.switchPage} />
 
 
                 <div className={styles.RegisterContainer}>

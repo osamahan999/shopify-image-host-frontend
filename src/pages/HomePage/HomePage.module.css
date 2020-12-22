@@ -1,0 +1,13 @@
+.container {
+    background-color: lightcyan;
+    width: 100vw;
+    height: 100vh;
+    
+    display: flex;
+    justify-content: center;
+}
+
+.centerContainer {
+    width:60%;
+    background-color :lightblue ;
+}

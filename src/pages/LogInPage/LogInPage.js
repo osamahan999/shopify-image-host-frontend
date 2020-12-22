@@ -1,17 +1,19 @@
-import { React, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import styles from "./LogInPage.module.css";
+import { Context } from "../../Store";
+import TopBar from "../../components/TopBar/Topbar";
 
 const axios = require('axios');
 
 
-function LogInPage() {
+function LogInPage(props) {
 
     const [username, setUsername] = useState(false);
     const [password, setPassword] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
 
-
+    const [state, setState] = useState(0);
 
     /**
      * On submit of form, sends data through POST to my API
@@ -25,9 +27,12 @@ function LogInPage() {
                 password: password
 
             }).then((response) => {
-                console.log(response.data.userUUID);
                 setErrorMessage("logged");
                 document.getElementById("login-form").reset();
+
+                props.logIn(response.data.userUUID);
+                props.switchPage("logged")
+
 
             }).catch((error) => {
                 setErrorMessage("Invalid input!");
@@ -48,16 +53,7 @@ function LogInPage() {
         <div className={styles.container} >
 
             <div className={styles.ContentContainer}>
-                <div className={styles.TopBar}>
-                    <button className={styles.Buttons}>
-                        Back to Home Page
-                    </button>
-
-
-                    <button className={styles.Buttons}>
-                        Register Page
-                    </button>
-                </div>
+                <TopBar switchPage={props.switchPage} />
 
 
 

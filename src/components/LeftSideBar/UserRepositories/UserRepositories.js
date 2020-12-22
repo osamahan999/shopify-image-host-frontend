@@ -1,19 +1,47 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 
 import styles from "./UserRepositories.module.css";
 
-//axios request toget all user repositories
+const axios = require('axios');
 
-function UserRepositories() {
-    const [repositories, setRepositories] = useState([1, 2, 3, 4, 4, , 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]);
+function UserRepositories(props) {
+    const [repositories, setRepositories] = useState(null);
+
+    useEffect(() => {
+        refresh();
+
+    }, [props.userUUID]);
+
+    useEffect(() => {
+        if (props.refreshFeed) refresh();
+    }, [props.refreshFeed]);
+
+    const refresh = () => {
+        if (props.userUUID != null && props.userUUID.length != 0) {
+            axios.get("http://localhost:5000/repo/getRepos", {
+                params: {
+                    userUUID: props.userUUID
+                }
+
+            }).then((response) => {
+                setRepositories(response.data);
+            }).catch((error) => {
+                alert("err!");
+            });
+        }
+
+    }
 
     return (
-        <div className={styles.container} >
-            {repositories && repositories.map((repository) => {
+        <div className={styles.container}>
+
+
+            {repositories != null && repositories.map((repository) => {
 
                 return (
                     <button className={styles.Repo}>
-                        Repo
+                        <div>Repo Name : {repository.name}</div>
+                        <div>Repo Id: {repository.repo_id}</div>
                     </button>
                 );
             })}

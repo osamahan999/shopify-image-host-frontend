@@ -1,13 +1,55 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import Modal from "@material-ui/core/Modal";
 
 import styles from "./LeftSideBar.module.css";
 import UserRepositories from "./UserRepositories/UserRepositories";
 
+const axios = require('axios');
 
-function LeftSideBar() {
+
+function LeftSideBar(props) {
     const [AddModalOpen, setAddModalOpen] = useState(false); //add delete modal
     const [DeleteModalOpen, setDeleteModalOpen] = useState(false); //add delete modal
+
+    const [userUUID, setUserUUID] = useState(null);
+
+    const [publicRepo, setPublicRepo] = useState(true);
+    const [repoName, setRepoName] = useState(null);
+
+
+    const [refreshFeed, setRefreshFeed] = useState(false);
+
+
+    useEffect(() => {
+        setUserUUID(props.userUUID);
+    }, [props.userUUID])
+
+
+    const createRepo = () => {
+        if (repoName != null && userUUID != null) {
+            var inputRepoName = repoName;
+            var inputPublicRepo = publicRepo;
+
+            setRepoName(null);
+            setPublicRepo(true);
+            document.getElementById("create-repo").reset();
+
+
+            axios.post("http://localhost:5000/repo/newRepo", {
+                userUUID: props.userUUID,
+                repoName: inputRepoName,
+                publicRepo: inputPublicRepo
+            }).then((response) => {
+                setRefreshFeed(!refreshFeed);
+                setAddModalOpen(false);
+
+            }).catch((error) => {
+                alert(error.toString());
+
+
+            });
+        }
+    }
 
 
     return (
@@ -15,11 +57,23 @@ function LeftSideBar() {
 
             <div className={styles.AddDeleteImages}>
                 <button onClick={() => setAddModalOpen(true)} className={styles.ImageButton}>
-                    Add
+                    New Repo
                 </button>
                 <div >
                     <Modal className={styles.AddDeleteModal} open={AddModalOpen} onClose={() => setAddModalOpen(false)} >
-                        <div className={styles.ModalContent}>add</div>
+                        <form id="create-repo" className={styles.ModalContent}>
+                            <div className={styles.inputSection}>
+                                <div ><div>Repo Name*:</div><input onChange={(e) => setRepoName(e.target.value)}></input></div>
+                                <div ><div>Private *</div><input onClick={(e) => {
+                                    setPublicRepo(!publicRepo);
+                                }} type="checkbox"></input></div>
+                                <button type="button" onClick={() => createRepo()} className={styles.SubmissionButton}>Create Repo</button>
+
+                            </div>
+
+
+
+                        </form>
                     </Modal>
 
                 </div>
@@ -27,7 +81,7 @@ function LeftSideBar() {
 
 
                 <button onClick={() => setDeleteModalOpen(true)} className={styles.ImageButton}>
-                    Delete
+                    Delete Repo
                 </button>
 
                 <div >
@@ -40,17 +94,17 @@ function LeftSideBar() {
 
 
             <div className={styles.RepoContainer}>
-                <UserRepositories />
+                <UserRepositories refreshFeed={refreshFeed} userUUID={props.userUUID} />
             </div>
 
             <div className={styles.LogoutContainer}>
-                <button className={styles.Logout}>
+                <button onClick={() => props.switchPage("home")} className={styles.Logout}>
                     Log Out
                 </button>
 
             </div>
 
-        </div>
+        </div >
     );
 }
 
