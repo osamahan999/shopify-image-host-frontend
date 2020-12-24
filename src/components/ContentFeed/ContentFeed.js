@@ -8,8 +8,10 @@ const axios = require('axios');
 
 function ContentFeed(props) {
 
-    const [removingImages, setRemovingImages] = useState(false); //images being removed get put in here
+    const [removingImages, setRemovingImages] = useState(false); //if we are removing
     const [imageArray, setImageArray] = useState([]); //holds images for the repo we're in from server
+
+    const [removeImagesArray, setRemoveImagesArray] = useState([]);
 
     const [updateFeed, setUpdateFeed] = useState(false); //used to trigger useEffect
 
@@ -19,6 +21,8 @@ function ContentFeed(props) {
 
 
     const [tagFilter, setTagFilter] = useState(''); //stores content of tag filter
+
+
 
 
     useEffect(() => {
@@ -70,6 +74,8 @@ function ContentFeed(props) {
 
     useEffect(() => {
         updateImageArray();
+        setRemoveImagesArray([]);
+
     }, [props.contentFeed]); //on load, update img arr, only runs once
 
 
@@ -82,7 +88,8 @@ function ContentFeed(props) {
         if (props.contentFeed != null) {
             axios.get("http://localhost:5000/repo/getRepoImages", {
                 params: {
-                    repoID: props.contentFeed
+                    repoID: props.contentFeed,
+                    userUUID: props.userUUID
                 }
 
             }).then((response) => {
@@ -101,6 +108,7 @@ function ContentFeed(props) {
         axios.get("http://localhost:5000/repo/getRepoImagesFiltered", {
             params: {
                 repoID: props.contentFeed,
+                userUUID: props.userUUID,
                 tags: tags
             }
 
@@ -110,6 +118,32 @@ function ContentFeed(props) {
         }).catch((error) => {
             console.log(error);
         });
+
+    }
+
+
+    const removeImages = () => {
+        if (!(removeImagesArray.length == 0)) {
+            axios.post("http://localhost:5000/image/deleteImageFromRepo", {
+                userUUID: props.userUUID,
+                repoId: props.contentFeed,
+                imagesToRemove: removeImagesArray
+
+            }).then((response) => {
+
+                console.log(response);
+                updateImageArray();
+                setRemoveImagesArray([]);
+
+            }).catch((error) => {
+                setRemoveImagesArray([]);
+
+                console.log(error);
+            });
+
+        } else {
+            alert("No images ");
+        }
 
     }
 
@@ -154,6 +188,10 @@ function ContentFeed(props) {
                         <div>
                             {removingImages && <div onClick={() => {
                                 setRemovingImages(false);
+
+                                removeImages();
+
+                                setRemoveImagesArray([]);
                             }} className={styles.RemoveSubmit}>Remove Selected</div>}
                         </div>
 
@@ -164,10 +202,16 @@ function ContentFeed(props) {
 
 
                         {imageArray.map((image) => <Image
-                            canBeRemoved={removingImages}
+                            canBeRemoved={removingImages} //send current value, push new image onto it, and send it back
+                            removeImagesArray={removeImagesArray}
+                            setRemoveImagesArray={(e) => setRemoveImagesArray(e)}
+
+                            userUUID={props.userUUID}
+                            repoId={props.contentFeed}
                             imageUrl={image.url}
                             imageTitle={image.title}
                             tags={image.tags}
+                            imageId={image.image_id}
                         />)}
 
                     </div>
