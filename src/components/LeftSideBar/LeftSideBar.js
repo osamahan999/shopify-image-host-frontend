@@ -3,29 +3,45 @@ import Modal from "@material-ui/core/Modal";
 
 import styles from "./LeftSideBar.module.css";
 import UserRepositories from "./UserRepositories/UserRepositories";
+import Notification from "./Notification/Notification";
+import InviteContainer from "./InviteContainer/InviteContainer";
 
 const axios = require('axios');
 
 
 function LeftSideBar(props) {
+    //open close tags for all the modals
     const [AddModalOpen, setAddModalOpen] = useState(false); //add delete modal
     const [DeleteModalOpen, setDeleteModalOpen] = useState(false); //add delete modal
+    const [NotificationsModalOpen, setNotificationsModalOpen] = useState(false);
 
+    //info of the user and repo they're on
     const [userUUID, setUserUUID] = useState(null);
+    const [repoID, setRepoID] = useState(null);
 
+    //info when creating new repo
     const [publicRepo, setPublicRepo] = useState(true);
     const [repoName, setRepoName] = useState(null);
 
-    const [repoID, setRepoID] = useState(null);
-
+    //used to display errors in the modals
     const [errorMessage, setErrorMessage] = useState(false);
+
+    //Used to update when changes happen
     const [refreshFeed, setRefreshFeed] = useState(false);
+
+    //Used for holding all the notifications for the user
+    const [NotificationsArray, setNotificationsArray] = useState([]); //empty arr initially
 
 
     useEffect(() => {
         setUserUUID(props.userUUID);
     }, [props.userUUID])
 
+
+    useEffect(() => {
+        getAllNotifs();
+
+    }, [userUUID]);
 
     const deleteRepo = () => {
         if (repoID != null && userUUID != null) {
@@ -54,20 +70,20 @@ function LeftSideBar(props) {
     const createRepo = () => {
         if (repoName != null && userUUID != null) {
             var inputRepoName = repoName;
-            var inputPublicRepo = publicRepo;
 
             setRepoName(null);
-            setPublicRepo(true);
             if (document.getElementById("create-repo") != null) document.getElementById("create-repo").reset();
 
 
             axios.post("http://localhost:5000/repo/newRepo", {
                 userUUID: userUUID,
                 repoName: inputRepoName,
-                publicRepo: inputPublicRepo
+                publicRepo: publicRepo
             }).then((response) => {
                 setRefreshFeed(!refreshFeed);
                 setAddModalOpen(false);
+                setPublicRepo(true);
+
 
             }).catch((error) => {
                 setErrorMessage(error.toString());
@@ -76,6 +92,21 @@ function LeftSideBar(props) {
             });
         }
     }
+
+    const getAllNotifs = () => {
+        if (userUUID != null) {
+            axios.get("http://localhost:5000/repoInvite/getInvites", {
+                params: {
+                    userUUID: userUUID
+                }
+            }).then((response) => {
+                setNotificationsArray(response.data);
+            }).catch((error) => {
+                alert(error);
+            })
+        }
+    }
+
 
 
     return (
@@ -86,7 +117,7 @@ function LeftSideBar(props) {
                     New Repo
                 </button>
                 <div >
-                    <Modal className={styles.AddDeleteModal} open={AddModalOpen} onClose={() => {
+                    <Modal className={styles.Modal} open={AddModalOpen} onClose={() => {
                         setAddModalOpen(false);
                         setErrorMessage(false);
                     }} >
@@ -97,6 +128,7 @@ function LeftSideBar(props) {
                                 <div ><div>Repo Name*:</div><input onChange={(e) => setRepoName(e.target.value)}></input></div>
                                 <div ><div>Private *</div><input onClick={(e) => {
                                     setPublicRepo(!publicRepo);
+                                    console.log(publicRepo);
                                 }} type="checkbox"></input></div>
                                 <button type="button" onClick={() => createRepo()} className={styles.SubmissionButton}>Create Repo</button>
 
@@ -116,7 +148,7 @@ function LeftSideBar(props) {
                 </button>
 
                 <div >
-                    <Modal className={styles.AddDeleteModal} open={DeleteModalOpen} onClose={() => {
+                    <Modal className={styles.Modal} open={DeleteModalOpen} onClose={() => {
                         setDeleteModalOpen(false);
                         setErrorMessage(false);
                     }} >
@@ -142,10 +174,43 @@ function LeftSideBar(props) {
                 <UserRepositories setContentFeed={props.setContentFeed} refreshFeed={refreshFeed} userUUID={props.userUUID} />
             </div>
 
-            <div className={styles.LogoutContainer}>
-                <button onClick={() => props.switchPage("home")} className={styles.Logout}>
+            <div className={styles.BottomLeftContainer}>
+                <button onClick={() => props.switchPage("home")} className={styles.BottomLeftButton}>
                     Log Out
                 </button>
+
+
+                <button onClick={() => {
+                    setNotificationsModalOpen(true);
+                    getAllNotifs();
+                }} className={styles.BottomLeftButton}>
+                    Notifications
+                </button>
+
+                <div >
+                    <Modal className={styles.Modal} open={NotificationsModalOpen} onClose={() => {
+                        setNotificationsModalOpen(false);
+
+                    }} >
+
+                        <div className={styles.NotificationsModalContainer}>
+                            <div className={styles.NotificationsContainer}>
+                                <div>Notifications would appear below</div>
+                                {NotificationsArray.map((notification) => <Notification
+                                    inviteId={notification.invite_id}
+                                    repoId={notification.repo_id}
+                                    userUUID={userUUID}
+                                    refreshNotifications={() => getAllNotifs()}
+                                />)}
+
+                            </div>
+                            <InviteContainer userUUID={userUUID} />
+
+                        </div>
+
+                    </Modal>
+
+                </div>
 
             </div>
 

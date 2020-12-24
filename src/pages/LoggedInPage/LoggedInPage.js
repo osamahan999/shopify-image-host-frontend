@@ -10,10 +10,11 @@ import styles from "./LoggedInPage.module.css";
 function LoggedInPage(props) {
     const [userUUID, setUserUUID] = useState(null);
     const [RepoInFocus, setRepoInFocus] = useState(null);
+
     useEffect(() => {
         setUserUUID(props.userUUID);
     }, [props.userUUID]);
-    console.log(userUUID);
+
 
     return (
         <div className={styles.container} >

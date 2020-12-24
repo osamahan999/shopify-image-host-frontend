@@ -13,7 +13,7 @@ function UserRepositories(props) {
     }, [props.userUUID]);
 
     useEffect(() => {
-        if (props.refreshFeed) refresh();
+        refresh();
     }, [props.refreshFeed]);
 
     const refresh = () => {
@@ -40,14 +40,14 @@ function UserRepositories(props) {
             {repositories != null && repositories.map((repository) => {
 
                 return (
-                    <button onClick={() => props.setContentFeed(repository.repo_id)} className={styles.Repo}>
+                    <button onClick={() => props.setContentFeed(repository.repo_id)} className={styles.Repo} >
                         <div>Repo Name : {repository.name}</div>
                         <div>Repo Id: {repository.repo_id}</div>
                     </button>
                 );
             })}
 
-        </div>
+        </div >
     );
 }
 
