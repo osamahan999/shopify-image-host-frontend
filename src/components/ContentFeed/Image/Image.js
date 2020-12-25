@@ -34,12 +34,14 @@ function Image(props) {
 
     return (
         <div className={styles.ImageContainer} >
-            <div>{props.imageTitle} {props.canBeRemoved &&
-                <input id={"removeCheckbox" + props.imageId} onClick={
-                    () => {
-                        addToRemovingImages();
-                    }
-                } type="checkbox"></input>}</div>
+
+            <div >
+                {props.imageTitle}
+
+                {props.canBeRemoved &&
+                    <input id={"removeCheckbox" + props.imageId} onClick={() => addToRemovingImages()} type="checkbox"></input>
+                }
+            </div>
             <img src={props.imageUrl} className={styles.Image}></img>
             <div> {props.tags}</div>
         </div >

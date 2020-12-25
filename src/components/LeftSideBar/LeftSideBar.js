@@ -57,9 +57,10 @@ function LeftSideBar(props) {
 
                 setRefreshFeed(!refreshFeed);
                 setDeleteModalOpen(false);
+                props.setContentFeed(null);
 
             }).catch((error) => {
-                setErrorMessage(error.toString());
+                setErrorMessage(error.response.data);
 
 
             });
@@ -184,7 +185,7 @@ function LeftSideBar(props) {
                     setNotificationsModalOpen(true);
                     getAllNotifs();
                 }} className={styles.BottomLeftButton}>
-                    Notifications
+                    Invites and Notifications
                 </button>
 
                 <div >
@@ -196,12 +197,14 @@ function LeftSideBar(props) {
                         <div className={styles.NotificationsModalContainer}>
                             <div className={styles.NotificationsContainer}>
                                 <div>Notifications would appear below</div>
-                                {NotificationsArray.map((notification) => <Notification
-                                    inviteId={notification.invite_id}
-                                    repoId={notification.repo_id}
-                                    userUUID={userUUID}
-                                    refreshNotifications={() => getAllNotifs()}
-                                />)}
+                                {NotificationsArray.map((notification) =>
+                                    <Notification
+                                        inviteId={notification.invite_id}
+                                        repoId={notification.repo_id}
+                                        userUUID={userUUID}
+                                        refreshNotifications={() => getAllNotifs()}
+                                        refreshFeed={() => setRefreshFeed(true)}
+                                    />)}
 
                             </div>
                             <InviteContainer userUUID={userUUID} />

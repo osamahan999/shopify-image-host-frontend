@@ -18,6 +18,7 @@ function Notification(props) {
                 console.log(response.data);
 
                 props.refreshNotifications();
+                props.refreshFeed();
 
             }).catch((error) => {
                 alert(error);

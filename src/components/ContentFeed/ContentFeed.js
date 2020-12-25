@@ -30,9 +30,7 @@ function ContentFeed(props) {
             setSubmitImages(false);
             if (uploadedImages != null) {
 
-
-
-                let formData = new FormData();
+                let formData = new FormData(); //used to append the files
 
                 let tags = tagInput;
 
@@ -44,8 +42,8 @@ function ContentFeed(props) {
                 formData.append("userUUID", props.userUUID);
                 formData.append("repoID", props.contentFeed);
 
+                //clears out input fields -> not tags tho
                 document.getElementById("file-upload").reset()
-
                 setUploadedImages(null);
 
                 axios({
@@ -56,10 +54,13 @@ function ContentFeed(props) {
                         "Content-Type": "multipart/form-data"
                     }
                 }).then((response) => {
+                    console.log(response.data);
                     setUpdateFeed(true);
 
-
-                }).catch((error) => console.log(error));
+                }).catch((error) => {
+                    setUpdateFeed(true);
+                    alert(error.response.data);
+                });
 
 
             } else alert("No files selected!");
@@ -84,6 +85,10 @@ function ContentFeed(props) {
         setUpdateFeed(false);
     }, [updateFeed]);
 
+
+    /**
+     * Used to update feed, gets all the images in the repo
+     */
     const updateImageArray = () => {
         if (props.contentFeed != null) {
             axios.get("http://localhost:5000/repo/getRepoImages", {
@@ -96,7 +101,7 @@ function ContentFeed(props) {
                 setImageArray(response.data);
 
             }).catch((error) => {
-                console.log(error);
+                alert(error.response.data);
             });
         }
     }
@@ -116,7 +121,7 @@ function ContentFeed(props) {
 
             setImageArray(response.data);
         }).catch((error) => {
-            console.log(error);
+            alert(error);
         });
 
     }
@@ -138,7 +143,7 @@ function ContentFeed(props) {
             }).catch((error) => {
                 setRemoveImagesArray([]);
 
-                console.log(error);
+                alert(error.response.data);
             });
 
         } else {
@@ -184,8 +189,9 @@ function ContentFeed(props) {
                             </div>
 
                         </div>
-                        <div onClick={() => setRemovingImages(!removingImages)} className={styles.ToggleRemove}>Remove Images?</div>
-                        <div>
+                        <div className={styles.removingImages}>
+
+                            <div onClick={() => setRemovingImages(!removingImages)} className={styles.ToggleRemove}>Remove Images?</div>
                             {removingImages && <div onClick={() => {
                                 setRemovingImages(false);
 
