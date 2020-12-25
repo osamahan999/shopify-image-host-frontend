@@ -1,70 +1,57 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is deployed on google cloud for the front & backend, and on heroku JawsDB for the MySQL server.
+Frontend can be accessed here:
+https://shopifyimagerepofrontend.uc.r.appspot.com/
 
-## Available Scripts
+Backend repo can be found here:
+https://github.com/osamahan999/shopify-image-host-backend/
 
-In the project directory, you can run:
 
-### `npm start`
+Set up details are below, but I will be giving a few comments here on this project.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Please give the link a bit, and try again if it does not work. Google cloud turns off the application if nobody accesses it in a certain time. 
+Same with the database and backend, so it may take a few tries for it to work as intended.
 
-### `npm test`
+This project has the following features:
+Registraton and Login
+Creation and deletion of image repositories
+Ability to rename the repository
+Ability to invite others to join your repository with varying permissions
+Ability to upload and remove any amount of files to your repository (however they are rendered as an img tag so non-image files would not render)
+Ability to add tags to the image/s you upload
+Ability to search images based on tag or tags
+XSS protection and SQL injection protection
+Hashed and salted password protection
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+I started this project on the 21st of December, and am deploying it now at December 25th. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+I'm going to list a few of the things I learned during this project, because quite frankly I learned a ton.
+I learned :
+ how to set up a google cloud bucket that stores images publicly
+ how to send files over HTTP 
+ how to handle multiples files, authenticate them, and forward them to a separate server
+ how to use multers to get the files from the post request
+ how to build SQL procedures
+ a ton of react information, even though it doesn't look like it from my frontend. I'm simply not good at designing pretty UI :(
+ 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To set up the frontend on your machine, please follow the following steps:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Either:
+1. Clone my repo, fix all the REST api calls to point to your local branch 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+OR if the node modules do not work, you may have to do the following
+1. Delete the node modules
+2. npx install
+3. npm install material-ui
+4. npm install axios
+5. npm install react
+6. Follow the instructions for setting up the backend at the backend repo
+7. Follow the instructions for setting up a google bucket
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Or just use my hosted version, I spent a ton of time getting it up on google cloud make it worth it please!
