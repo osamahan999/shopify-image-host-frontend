@@ -1,0 +1,13 @@
+.Notification {
+    width: 100%;
+    cursor: pointer;
+    flex-direction: row;
+    display:flex;
+    justify-content: space-evenly;
+}
+
+.acceptInvite {
+    background-color: white;
+    border:1px solid black;
+    border-radius: 200px;
+}
