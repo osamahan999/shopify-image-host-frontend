@@ -9,7 +9,7 @@ function Notification(props) {
     const acceptInvite = () => {
         if (props.repoId != null && props.inviteId != null) {
 
-            axios.post("http://localhost:5000/repoInvite/acceptInvite", {
+            axios.post("https://shopifyimagerepobackend.wl.r.appspot.com/repoInvite/acceptInvite", {
                 userUUID: props.userUUID,
                 repoId: props.repoId,
                 inviteId: props.inviteId

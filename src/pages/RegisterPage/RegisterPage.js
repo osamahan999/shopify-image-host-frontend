@@ -24,7 +24,7 @@ function RegisterPage(props) {
 
         if (firstName && lastName && email && username && password) {
 
-            axios.post("http://localhost:5000/user/userRegister", {
+            axios.post("https://shopifyimagerepobackend.wl.r.appspot.com/user/userRegister", {
                 username: username,
                 password: password,
                 email: email,

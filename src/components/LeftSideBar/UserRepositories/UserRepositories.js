@@ -24,7 +24,7 @@ function UserRepositories(props) {
 
     const refresh = () => {
         if (props.userUUID != null && props.userUUID.length != 0) {
-            axios.get("http://localhost:5000/repo/getRepos", {
+            axios.get("https://shopifyimagerepobackend.wl.r.appspot.com/repo/getRepos", {
                 params: {
                     userUUID: props.userUUID
                 }
@@ -41,7 +41,7 @@ function UserRepositories(props) {
 
     const renameRepo = () => {
         if (RepoToRename != -1 && CurrentRepoName != null && RenameInputText != null && RenameInputText != '') {
-            axios.post("http://localhost:5000/repo/renameRepo", {
+            axios.post("https://shopifyimagerepobackend.wl.r.appspot.com/repo/renameRepo", {
                 userUUID: props.userUUID,
                 repoId: RepoToRename,
                 newRepoName: RenameInputText

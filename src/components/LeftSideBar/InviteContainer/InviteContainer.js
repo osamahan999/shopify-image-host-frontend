@@ -20,7 +20,7 @@ function InviteContainer(props) {
         if (!(username == null || props.userUUID == null || repoId == null)) {
 
 
-            axios.post("http://localhost:5000/repoInvite/inviteUser", {
+            axios.post("https://shopifyimagerepobackend.wl.r.appspot.com/repoInvite/inviteUser", {
                 userUUID: props.userUUID,
                 repoId: repoId,
                 username: username,

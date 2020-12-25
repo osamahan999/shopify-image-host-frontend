@@ -48,7 +48,7 @@ function ContentFeed(props) {
 
                 axios({
                     method: "POST",
-                    url: "http://localhost:5000/image/uploadImages",
+                    url: "https://shopifyimagerepobackend.wl.r.appspot.com/image/uploadImages",
                     data: formData,
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -91,7 +91,7 @@ function ContentFeed(props) {
      */
     const updateImageArray = () => {
         if (props.contentFeed != null) {
-            axios.get("http://localhost:5000/repo/getRepoImages", {
+            axios.get("https://shopifyimagerepobackend.wl.r.appspot.com/repo/getRepoImages", {
                 params: {
                     repoID: props.contentFeed,
                     userUUID: props.userUUID
@@ -110,7 +110,7 @@ function ContentFeed(props) {
     const filterFeed = () => {
         let tags = tagFilter;
 
-        axios.get("http://localhost:5000/repo/getRepoImagesFiltered", {
+        axios.get("https://shopifyimagerepobackend.wl.r.appspot.com/repo/getRepoImagesFiltered", {
             params: {
                 repoID: props.contentFeed,
                 userUUID: props.userUUID,
@@ -129,7 +129,7 @@ function ContentFeed(props) {
 
     const removeImages = () => {
         if (!(removeImagesArray.length == 0)) {
-            axios.post("http://localhost:5000/image/deleteImageFromRepo", {
+            axios.post("https://shopifyimagerepobackend.wl.r.appspot.com/image/deleteImageFromRepo", {
                 userUUID: props.userUUID,
                 repoId: props.contentFeed,
                 imagesToRemove: removeImagesArray

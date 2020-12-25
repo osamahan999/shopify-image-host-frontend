@@ -50,7 +50,7 @@ function LeftSideBar(props) {
             if (document.getElementById("delete-repo") != null) document.getElementById("delete-repo").reset();
 
 
-            axios.post("http://localhost:5000/repo/deleteRepo", {
+            axios.post("https://shopifyimagerepobackend.wl.r.appspot.com/repo/deleteRepo", {
                 userUUID: userUUID,
                 repoID: inputRepoID
             }).then((response) => {
@@ -76,7 +76,7 @@ function LeftSideBar(props) {
             if (document.getElementById("create-repo") != null) document.getElementById("create-repo").reset();
 
 
-            axios.post("http://localhost:5000/repo/newRepo", {
+            axios.post("https://shopifyimagerepobackend.wl.r.appspot.com/repo/newRepo", {
                 userUUID: userUUID,
                 repoName: inputRepoName,
                 publicRepo: publicRepo
@@ -96,7 +96,7 @@ function LeftSideBar(props) {
 
     const getAllNotifs = () => {
         if (userUUID != null) {
-            axios.get("http://localhost:5000/repoInvite/getInvites", {
+            axios.get("https://shopifyimagerepobackend.wl.r.appspot.com/repoInvite/getInvites", {
                 params: {
                     userUUID: userUUID
                 }

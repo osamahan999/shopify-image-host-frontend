@@ -20,7 +20,7 @@ function LogInPage(props) {
 
         if (username && password) {
 
-            axios.post("http://localhost:5000/user/userLogin", {
+            axios.post("https://shopifyimagerepobackend.wl.r.appspot.com/user/userLogin", {
                 username: username,
                 password: password
 
