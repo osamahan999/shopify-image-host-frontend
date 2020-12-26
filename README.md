@@ -40,11 +40,17 @@ I started this project on the 21st of December, and am deploying it now at Decem
 
 I'm going to list a few of the things I learned during this project, because quite frankly I learned a ton.
 I learned :
+ 
  how to set up a google cloud bucket that stores images publicly
+ 
  how to send files over HTTP 
+ 
  how to handle multiples files, authenticate them, and forward them to a separate server
+ 
  how to use multers to get the files from the post request
+ 
  how to build SQL procedures
+ 
  a ton of react information, even though it doesn't look like it from my frontend. I'm simply not good at designing pretty UI :(
  
 
