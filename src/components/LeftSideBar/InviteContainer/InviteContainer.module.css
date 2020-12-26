@@ -2,4 +2,6 @@
     width: 50%;
     height: 100%;
     margin-left: 2%;
+    font-size: calc(0.8vw + 0.6vh);
+
 }
