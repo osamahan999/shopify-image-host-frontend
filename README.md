@@ -1,19 +1,19 @@
 
 This project is deployed on google cloud for the front & backend, and on heroku JawsDB for the MySQL server.
-Frontend can be accessed here:
+**Frontend can be accessed here:**
 https://shopifyimagerepofrontend.uc.r.appspot.com/
 
-Backend repo can be found here:
+**Backend repo can be found here:**
 https://github.com/osamahan999/shopify-image-host-backend/
 
 
 Set up details are below, but I will be giving a few comments here on this project.
 
 
-Please give the link a bit, and try again if it does not work. Google cloud turns off the application if nobody accesses it in a certain time. 
-Same with the database and backend, so it may take a few tries for it to work as intended.
+**Please give the link a bit, and try again if it does not work. Google cloud turns off the application if nobody accesses it in a certain time. 
+Same with the database and backend, so it may take a few tries for it to work as intended.**
 
-This project has the following features:
+**This project has the following features:**
 
  
  Registraton and Login
@@ -36,9 +36,9 @@ This project has the following features:
 
 
 
-I started this project on the 21st of December, and am deploying it now at December 25th. 
+**I started this project on the 21st of December, and am deploying it now at December 25th. **
 
-I'm going to list a few of the things I learned during this project, because quite frankly I learned a ton.
+**I'm going to list a few of the things I learned during this project, because quite frankly I learned a ton.**
 I learned :
  
  how to set up a google cloud bucket that stores images publicly
@@ -56,7 +56,7 @@ I learned :
 
 
 
-To set up the frontend on your machine, please follow the following steps:
+**To set up the frontend on your machine, please follow the following steps:**
 
 Either:
 1. Clone my repo, fix all the REST api calls to point to your local branch 
