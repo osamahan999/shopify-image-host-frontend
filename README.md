@@ -36,9 +36,10 @@ Same with the database and backend, so it may take a few tries for it to work as
 
 
 
-**I started this project on the 21st of December, and am deploying it now at December 25th. **
+I started this project on the 21st of December, and am deploying it now at December 25th. 
 
 **I'm going to list a few of the things I learned during this project, because quite frankly I learned a ton.**
+
 I learned :
  
  how to set up a google cloud bucket that stores images publicly
