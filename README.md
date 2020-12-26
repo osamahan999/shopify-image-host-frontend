@@ -14,24 +14,15 @@ Please give the link a bit, and try again if it does not work. Google cloud turn
 Same with the database and backend, so it may take a few tries for it to work as intended.
 
 This project has the following features:
-
-Registraton and Login
-
-Creation and deletion of image repositories
-
-Ability to rename the repository
-
-Ability to invite others to join your repository with varying permissions
-
-Ability to upload and remove any amount of files to your repository (however they are rendered as an img tag so non-image files would not render)
-
-Ability to add tags to the image/s you upload
-
-Ability to search images based on tag or tags
-
-XSS protection and SQL injection protection
-
-Hashed and salted password protection
+ Registraton and Login
+ Creation and deletion of image repositories
+ Ability to rename the repository
+ Ability to invite others to join your repository with varying permissions
+ Ability to upload and remove any amount of files to your repository (however they are rendered as an img tag so non-image files would not render)
+ Ability to add tags to the image/s you upload
+ Ability to search images based on tag or tags
+ XSS protection and SQL injection protection
+ Hashed and salted password protection
 
 
 
