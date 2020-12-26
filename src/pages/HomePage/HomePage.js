@@ -39,7 +39,9 @@ function HomePage(props) {
                                     to risk taking your personal information. Please do not upload any sensitive images or sensitive information.
                                     All the images are public on google cloud so please do not upload any sensitive information. If you do, please reach out to me so
                                 that I can remove it.  </p>
-
+                                    <p>I am NOT a frontend engineer. This site does not work very well on mobile, and on lower resolution monitors.
+                                    For best results, please use a 1920x1080 monitor.
+                                    </p>
                                 </ul>
 
                             </div>
