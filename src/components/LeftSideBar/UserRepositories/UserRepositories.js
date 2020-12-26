@@ -65,7 +65,7 @@ function UserRepositories(props) {
                             <div>Repo Name : {repository.name}</div>
                             <div>Repo Id: {repository.repo_id}</div>
                         </div>
-                        <button onClick={() => {
+                        <button className={styles.renameButton} onClick={() => {
                             setRenameInputText(null);
                             setRepoToRename(repository.repo_id);
                             setCurrentRepoName(repository.name);
